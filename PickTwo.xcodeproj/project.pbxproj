@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D84491DE289761BC002B1653 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84491DD289761BC002B1653 /* Team.swift */; };
+		D84491E1289B2C85002B1653 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84491E0289B2C85002B1653 /* LeaderboardView.swift */; };
+		D84491E3289B2D5A002B1653 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84491E2289B2D5A002B1653 /* ProfileView.swift */; };
+		D84491E7289B2FE1002B1653 /* ListRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84491E6289B2FE1002B1653 /* ListRowModifier.swift */; };
+		D84491E9289B30FD002B1653 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84491E8289B30FD002B1653 /* Network.swift */; };
 		D88006042897141C00FCC982 /* PickTwoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006032897141C00FCC982 /* PickTwoApp.swift */; };
-		D88006062897141C00FCC982 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006052897141C00FCC982 /* ContentView.swift */; };
+		D88006062897141C00FCC982 /* RankingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006052897141C00FCC982 /* RankingsView.swift */; };
 		D88006082897141E00FCC982 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D88006072897141E00FCC982 /* Assets.xcassets */; };
 		D880060B2897141E00FCC982 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D880060A2897141E00FCC982 /* Preview Assets.xcassets */; };
 		D88006152897141E00FCC982 /* PickTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006142897141E00FCC982 /* PickTwoTests.swift */; };
 		D880061F2897141E00FCC982 /* PickTwoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D880061E2897141E00FCC982 /* PickTwoUITests.swift */; };
 		D88006212897141E00FCC982 /* PickTwoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006202897141E00FCC982 /* PickTwoUITestsLaunchTests.swift */; };
+		D880062F2897222B00FCC982 /* Network in Resources */ = {isa = PBXBuildFile; fileRef = D880062E2897222B00FCC982 /* Network */; };
+		D88006322897259600FCC982 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88006312897259600FCC982 /* Poll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +41,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D84491DD289761BC002B1653 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		D84491DF28977566002B1653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D84491E0289B2C85002B1653 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		D84491E2289B2D5A002B1653 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		D84491E6289B2FE1002B1653 /* ListRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowModifier.swift; sourceTree = "<group>"; };
+		D84491E8289B30FD002B1653 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		D88006002897141C00FCC982 /* PickTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88006032897141C00FCC982 /* PickTwoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTwoApp.swift; sourceTree = "<group>"; };
-		D88006052897141C00FCC982 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D88006052897141C00FCC982 /* RankingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsView.swift; sourceTree = "<group>"; };
 		D88006072897141E00FCC982 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D880060A2897141E00FCC982 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D88006102897141E00FCC982 /* PickTwoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickTwoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +57,8 @@
 		D880061A2897141E00FCC982 /* PickTwoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickTwoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D880061E2897141E00FCC982 /* PickTwoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTwoUITests.swift; sourceTree = "<group>"; };
 		D88006202897141E00FCC982 /* PickTwoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTwoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D880062E2897222B00FCC982 /* Network */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Network; sourceTree = "<group>"; };
+		D88006312897259600FCC982 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +86,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D84491E4289B2F7A002B1653 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D84491E2289B2D5A002B1653 /* ProfileView.swift */,
+				D84491E0289B2C85002B1653 /* LeaderboardView.swift */,
+				D88006052897141C00FCC982 /* RankingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D84491E5289B2F9D002B1653 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D84491E6289B2FE1002B1653 /* ListRowModifier.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		D88005F72897141C00FCC982 = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +127,13 @@
 		D88006022897141C00FCC982 /* PickTwo */ = {
 			isa = PBXGroup;
 			children = (
+				D84491DF28977566002B1653 /* Info.plist */,
+				D88006302897257A00FCC982 /* Models */,
+				D880062E2897222B00FCC982 /* Network */,
 				D88006032897141C00FCC982 /* PickTwoApp.swift */,
-				D88006052897141C00FCC982 /* ContentView.swift */,
+				D84491E8289B30FD002B1653 /* Network.swift */,
+				D84491E5289B2F9D002B1653 /* Utilities */,
+				D84491E4289B2F7A002B1653 /* Views */,
 				D88006072897141E00FCC982 /* Assets.xcassets */,
 				D88006092897141E00FCC982 /* Preview Content */,
 			);
@@ -125,6 +163,15 @@
 				D88006202897141E00FCC982 /* PickTwoUITestsLaunchTests.swift */,
 			);
 			path = PickTwoUITests;
+			sourceTree = "<group>";
+		};
+		D88006302897257A00FCC982 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D88006312897259600FCC982 /* Poll.swift */,
+				D84491DD289761BC002B1653 /* Team.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D880062F2897222B00FCC982 /* Network in Resources */,
 				D880060B2897141E00FCC982 /* Preview Assets.xcassets in Resources */,
 				D88006082897141E00FCC982 /* Assets.xcassets in Resources */,
 			);
@@ -257,7 +305,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D88006062897141C00FCC982 /* ContentView.swift in Sources */,
+				D88006062897141C00FCC982 /* RankingsView.swift in Sources */,
+				D88006322897259600FCC982 /* Poll.swift in Sources */,
+				D84491E9289B30FD002B1653 /* Network.swift in Sources */,
+				D84491E7289B2FE1002B1653 /* ListRowModifier.swift in Sources */,
+				D84491DE289761BC002B1653 /* Team.swift in Sources */,
+				D84491E1289B2C85002B1653 /* LeaderboardView.swift in Sources */,
+				D84491E3289B2D5A002B1653 /* ProfileView.swift in Sources */,
 				D88006042897141C00FCC982 /* PickTwoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +474,7 @@
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PickTwo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +504,7 @@
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PickTwo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
