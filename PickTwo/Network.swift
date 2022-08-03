@@ -54,7 +54,7 @@ class Network: ObservableObject {
         guard let url = URL(string: "https://api.collegefootballdata.com/teams/fbs?year=2022") else { fatalError("Missing URL") }
 
         var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("Bearer XCz8eADs8uHTXVfmqXtYdnovZPtv1i1W0tZg1bZcBFURaagoobJ9QoXaaWEjo9wG", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("YOUR API KEY HERE", forHTTPHeaderField: "Authorization")
 
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
