@@ -5,6 +5,7 @@ DerivedData/
 *.pbxuser
 xcuserdata/
 .build/
+*.plist
 
 *.hmap
 *.DS_Store
