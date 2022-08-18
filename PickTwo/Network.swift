@@ -112,6 +112,16 @@ class Network: ObservableObject {
         friendlyNames = nil
     }
     
+    func setName(id: String, name: String) {
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(id)
+        ref.setData({
+            ["name": name,
+             "uid": id]
+        }(), merge: true)
+    }
+
+    
     func getTeams() {
         guard let url = URL(string: "https://api.collegefootballdata.com/teams/fbs?year=2022") else { fatalError("Missing URL") }
 

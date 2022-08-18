@@ -92,6 +92,8 @@ struct MainView: View {
                        self.userProfile.name = data["name"] as? String ?? ""
                        self.userProfile.previousPicks = data["previousPicks"] as? [String] ?? []
                    }
+               } else {
+                   db.collection("users").document(id).setData({["uid":id]}())
                }
            }
     }

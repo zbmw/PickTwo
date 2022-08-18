@@ -101,9 +101,8 @@ struct TeamsListView: View {
     }
     
     private func selectDeselect(_ team: Team) {
-        guard let prevPicks = user.previousPicks, !prevPicks.contains(where: {$0.self == team.school}) else {
+        if let prevPicks = user.previousPicks, !prevPicks.contains(where: {$0.self == team.school}) {
             print("Cannot select team, already picked.")
-            return
         }
         
         if selections.contains(where: {$0.school == team.school}) {
