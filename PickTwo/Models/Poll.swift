@@ -49,7 +49,7 @@ struct Poll: Decodable {
 struct RankedTeam: Decodable {
     var rank: Int
     let school: String
-    let conference: String
+    let conference: String?
     
     enum CodingKeys: String, CodingKey {
         case rank
@@ -61,6 +61,6 @@ struct RankedTeam: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         rank = try container.decode(Int.self ,forKey: .rank)
         school = try container.decode(String.self, forKey: .school)
-        conference = try container.decode(String.self, forKey: .conference)
+        conference = try container.decodeIfPresent(String.self, forKey: .conference)
     }
 }

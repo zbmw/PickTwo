@@ -29,7 +29,7 @@ extension CFBDataEndpoint: Endpoint {
 
     var header: [String: String]? {
         // Access Token to use in Bearer header
-        let accessToken = "YOUR API KEY HERE"
+        let accessToken = Constants.accessTokenRoot
         switch self {
         case .rankings, .movieDetail:
             return [

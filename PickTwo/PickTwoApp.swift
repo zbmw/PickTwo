@@ -6,44 +6,47 @@
 //
 
 import SwiftUI
+import Firebase
+
+class AuthUser: ObservableObject {
+    @Published var id: String?
+}
+
+class UserProfile: ObservableObject {
+    @Published var id: String?
+    @Published var currentPicks: [String]?
+    @Published var name: String?
+    @Published var previousPicks: [String]?
+}
+
 
 @main
 struct PickTwoApp: App {
-    var network = Network()
+    @StateObject var user: AuthUser = AuthUser()
+    @StateObject var network: Network = Network()
+    @StateObject var userProfile: UserProfile = UserProfile()
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            TabView {
-                NavigationView {
-                    RankingsView()
-                        .environmentObject(network)
-                        .navigationTitle("Top 25")
-                }
-                .tabItem {
-                    Image(systemName: "list.number")
-                        .padding()
-                    Text("Top 25")
-                }
-                NavigationView {
-                    LeaderboardView()
-                        .environmentObject(network)
-                        .navigationTitle("Leaderboard")
-                }
-                .tabItem {
-                    Image(systemName: "chart.bar")
-                        .padding()
-                    Text("Leaderboard")
-                }
-                NavigationView {
-                    LeaderboardView()
-                        .environmentObject(network)
-                        .navigationTitle("Profile")
-                }
-                .tabItem {
-                    Image(systemName: "person")
-                        .padding()
-                    Text("Profile/Picks")
-                }
-            }
+            content
+        }
+    }
+    
+    @ViewBuilder
+    var content: some View {
+        if user.id?.isEmpty ?? true {
+            LoginView()
+                .environmentObject(user)
+                .environmentObject(network)
+        } else {
+            MainView()
+                .environmentObject(user)
+                .environmentObject(userProfile)
+                .environmentObject(network)
         }
     }
 }

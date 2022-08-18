@@ -10,28 +10,41 @@ import Foundation
 
 struct RankingsView: View {
     @EnvironmentObject var network: Network
+    @EnvironmentObject var userProfile: UserProfile
+    @EnvironmentObject var authUser: AuthUser
+    
     
     var body: some View {
         TeamsListView()
+            .environmentObject(userProfile)
+            .environmentObject(network)
+            .environmentObject(authUser)
             .onAppear {
                 network.getRankings()
                 network.getTeams()
-            }
+        }
     }
-    
 }
 
 struct TeamsListView: View {
     @State private var selection: Team?
     @State private var selections: [Team] = []
     @State private var showSubmit: Bool = false
+    @State private var showSubmissionSuccess: Bool = false
     @EnvironmentObject var network: Network
+    @EnvironmentObject var user: UserProfile
+    @EnvironmentObject var authUser: AuthUser
+    
     
     var body: some View {
         VStack {
             list
             if showSubmit {
                 Button(action: {
+                    network.setPicks(picks: selections, id: authUser.id ?? "", name: user.name ?? "", previousPicks: user.previousPicks ?? [])
+                    showSubmit = false
+                    selections.removeAll()
+                    showSubmissionSuccess = true
                 }) {
                     Text("Submit Picks")
                         .fontWeight(.bold)
@@ -40,15 +53,19 @@ struct TeamsListView: View {
                         .background(Color.green)
                         .cornerRadius(40)
                         .foregroundColor(.white)
+                        .clipShape(Capsule())
                         .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 40)
-                                .stroke(Color.green, lineWidth: 5)
-                        )
                 }
                 .frame(maxWidth: .infinity, maxHeight: 100)
-                .background(Color.white)
+                .background(.blue.opacity(0.2))
             }
+        }
+        .alert(isPresented: $showSubmissionSuccess) {
+            Alert(title: Text("Your Picks were submitted!"), message: Text("Thanks for setting your picks, please refresh to see your new picks."),
+                  dismissButton: .default(Text("Okay")) {
+                        showSubmissionSuccess = false
+                    }
+            )
         }
         
     }
@@ -68,17 +85,27 @@ struct TeamsListView: View {
                     }
                     .frame(width: 35, height: 35, alignment: .trailing)
                     Spacer()
-                    Text("Pick Team")
-                        .foregroundColor(Color.blue)
+                    if team.school == user.currentPicks?.first || team.school == user.currentPicks?.last {
+                        Text("Current Pick")
+                            .foregroundColor(Color.yellow)
+                    } else {
+                        Text("Pick Team")
+                            .foregroundColor(Color.blue)
+                    }
                 }
             }
             .onTapGesture { self.selectDeselect(team) }
-            .listRowBackground(selections.contains(where: {$0.school == team.school}) ? Color.green : Color.white)
+            .listRowBackground(self.colorCells(team: team))
         }
         .listStyle(.automatic)
     }
     
     private func selectDeselect(_ team: Team) {
+        guard let prevPicks = user.previousPicks, !prevPicks.contains(where: {$0.self == team.school}) else {
+            print("Cannot select team, already picked.")
+            return
+        }
+        
         if selections.contains(where: {$0.school == team.school}) {
             let index = selections.firstIndex(where: {$0.school == team.school})
             selections.remove(at: index ?? 0)
@@ -92,6 +119,17 @@ struct TeamsListView: View {
             showSubmit = false
         }
     }
+    
+    private func colorCells(team: Team) -> Color {
+        if let prevPicks = user.previousPicks, prevPicks.contains(where: {$0.self == team.school}) {
+            return Color.red.opacity(0.6)
+        } else if selections.contains(where: {$0.school == team.school}) {
+            return Color.green.opacity(0.6)
+        } else {
+            return Color.white
+        }
+    }
+    
 }
 
 

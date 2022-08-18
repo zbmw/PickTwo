@@ -1,0 +1,10 @@
+Swift.gitignore
+build/
+DerivedData/
+
+*.pbxuser
+xcuserdata/
+.build/
+
+*.hmap
+*.DS_Store
