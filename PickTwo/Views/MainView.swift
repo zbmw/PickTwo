@@ -38,6 +38,7 @@ struct MainView: View {
             NavigationView {
                 LeaderboardView()
                     .environmentObject(network)
+                    .environmentObject(userProfile)
                     .navigationTitle("Leaderboard")
             }
             .tabItem {
@@ -66,6 +67,7 @@ struct MainView: View {
             }
         }.onAppear() {
             self.getUser()
+            network.standings = network.getAllUsers() ?? [:]
         }
     }
     

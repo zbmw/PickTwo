@@ -12,7 +12,8 @@ import Firebase
 class Network: ObservableObject {
     @Published var polls: Poll?
     @Published var teams: [Team] = []
-    @Published var user: UserProfile? 
+    @Published var user: UserProfile?
+    @Published var standings: [String:Int] = [:]
     
     var rankedTeams: [Team] {
         let teams = self.teams.filter({$0.rank != nil}).sorted(by: {$0.rank ?? 99 < $1.rank ?? 98})
@@ -92,6 +93,29 @@ class Network: ObservableObject {
             print("User was not found")
         }
         return user
+    }
+    
+    func getAllUsers() -> [String:Int]? {
+        let db = Firestore.firestore()
+        var standings: [String:Int] = [:]
+        let users = db.collection("users")
+        users.getDocuments { snapshot, error in
+            guard error == nil else {
+                print("Error: \(error?.localizedDescription ?? "")")
+                return
+            }
+            for document in snapshot!.documents {
+                let data = document.data()
+                let name = data["name"] as? String ?? "N/A"
+                let strikes = data["strikes"] as? Int ?? 0
+                standings["\(name)"] = strikes
+                print("Got user named -> \(name) <- with \(strikes) strikes")
+                print(standings.description)
+            }
+            print("final: \(standings.description)")
+            self.standings = standings
+        }
+        return self.standings
     }
     
     func setPicks(picks: [Team], id: String, name: String, previousPicks: [String]) {

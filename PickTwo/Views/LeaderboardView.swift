@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct LeaderboardView: View {
+    @EnvironmentObject var network: Network
+    @EnvironmentObject var userProfile: UserProfile
+
     var body: some View {
-        Text("Coming Soon. Stay Tuned!")
+        List {
+            Section(header: HStack{
+                    Text("Name")
+                    Spacer()
+                    Text("Strikes")
+            }) {
+                ForEach(network.standings.sorted(by: <), id: \.key) { key, value in
+                    HStack {
+                        Text("\(key)")
+                        Spacer()
+                        Text("\(value)")
+                    }
+                }
+            }
+        }
     }
 }
 
