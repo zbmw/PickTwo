@@ -23,29 +23,26 @@ struct ProfileView: View {
                 }
             } else {
                 VStack(alignment: .leading) {
-                    Text("Welcome back, \(userProfile.name ?? "")!")
+                    Text("Welcome Back, \(userProfile.name ?? "")!")
                         .padding()
                         .font(.title)
-                    Text("Your Picks:")
-                        .font(.largeTitle)
-                        .padding()
-                    List(userProfile.currentPicks ?? [], id: \.self) { team in
-                        Text("\(team)")
-                    }
-                    Text("Previous Picks:")
-                        .padding()
-                    if let prevPicks = userProfile.previousPicks, prevPicks.isEmpty {
-                        Text("No picks yet.")
-                            .padding()
-                    } else {
-                        List(userProfile.previousPicks ?? ["No picks yet."], id: \.self) { team in
-                            if let prevPicks = userProfile.previousPicks, prevPicks.isEmpty {
-                                Text("No picks yet.")
-                            } else {
+                    List {
+                        Section(header: Text("Your Picks This Week:")) {
+                            ForEach(userProfile.currentPicks ?? [], id: \.self) { team in
                                 Text("\(team)")
                             }
                         }
-                    }
+                        Section(header: Text("Previously picked teams:")) {
+                            if let prevPicks = userProfile.previousPicks, prevPicks.isEmpty {
+                                Text("No picks yet.")
+                                    .padding()
+                            } else {
+                                ForEach(userProfile.previousPicks ?? [], id: \.self) { team in
+                                    Text("\(team)")
+                                }
+                            }
+                        }
+                    }.listStyle(.insetGrouped)
                 }
             }
         }
