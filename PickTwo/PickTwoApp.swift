@@ -42,6 +42,7 @@ struct PickTwoApp: App {
             LoginView()
                 .environmentObject(user)
                 .environmentObject(network)
+                .environmentObject(userProfile)
         } else {
             MainView()
                 .environmentObject(user)

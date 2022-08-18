@@ -13,6 +13,7 @@ import AuthenticationServices
 struct LoginView: View {
     @State var currentNonce: String?
     @EnvironmentObject var user: AuthUser
+    @EnvironmentObject var userProfile: UserProfile
     @EnvironmentObject var network: Network
     
     var body: some View {
@@ -57,6 +58,7 @@ struct LoginView: View {
                                 print("signed in")
                                 user.id = authResult?.user.uid
                                 network.user?.id = authResult?.user.uid
+                                userProfile.id = authResult?.user.uid
                             }
         
                         default:

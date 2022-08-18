@@ -18,6 +18,7 @@ struct ProfileView: View {
                 Form {
                     TextField("Please Enter Your Name", text: $name) {
                         userProfile.name = name
+                        network.setName(id: userProfile.id ?? "", name: name)
                     }
                 }
             } else {
