@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1095978460671-n9460i89v11te6gn2p6eta5do4qbujof.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1095978460671-n9460i89v11te6gn2p6eta5do4qbujof</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA_SNL_S2ctmSfsg_wLSKkQ3Hy3kc1CoZ4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1095978460671</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>zbmw.PickTwo</string>
+	<key>PROJECT_ID</key>
+	<string>picktwo-cc824</string>
+	<key>STORAGE_BUCKET</key>
+	<string>picktwo-cc824.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1095978460671:ios:e396049a69f4dee20cb3ca</string>
+</dict>
+</plist>
