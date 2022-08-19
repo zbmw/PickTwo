@@ -12,11 +12,11 @@ struct MainView: View {
     @EnvironmentObject var userProfile: UserProfile
     @EnvironmentObject var network: Network
     @EnvironmentObject var user: AuthUser
-    @State var hasUsername: Bool = false
+    @State var selection: Int = 4
     
     
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             NavigationView {
                 RankingsView()
                     .environmentObject(network)
@@ -34,28 +34,42 @@ struct MainView: View {
                 Image(systemName: "list.number")
                     .padding()
                 Text("Top 25")
-            }
+            }.tag(1)
             NavigationView {
                 GamesView()
                     .environmentObject(network)
                     .navigationTitle("Matchups")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Refresh") {
+                                network.getMatchups()
+                            }
+                        }
+                    }
             }
             .tabItem {
                 Image(systemName: "sportscourt")
                     .padding()
                 Text("Matchups")
-            }
+            }.tag(2)
             NavigationView {
                 LeaderboardView()
                     .environmentObject(network)
                     .environmentObject(userProfile)
                     .navigationTitle("Leaderboard")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Refresh") {
+                                network.getAllUsers()
+                            }
+                        }
+                    }
             }
             .tabItem {
                 Image(systemName: "chart.bar")
                     .padding()
                 Text("Leaderboard")
-            }
+            }.tag(3)
             NavigationView {
                 ProfileView()
                     .environmentObject(network)
@@ -74,7 +88,7 @@ struct MainView: View {
                 Image(systemName: "person")
                     .padding()
                 Text("Profile/Picks")
-            }
+            }.tag(4)
         }.onAppear() {
             self.getUser()
             network.standings = network.getAllUsers() ?? [:]
