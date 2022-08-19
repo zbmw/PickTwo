@@ -36,6 +36,16 @@ struct MainView: View {
                 Text("Top 25")
             }
             NavigationView {
+                GamesView()
+                    .environmentObject(network)
+                    .navigationTitle("Matchups")
+            }
+            .tabItem {
+                Image(systemName: "sportscourt")
+                    .padding()
+                Text("Matchups")
+            }
+            NavigationView {
                 LeaderboardView()
                     .environmentObject(network)
                     .environmentObject(userProfile)

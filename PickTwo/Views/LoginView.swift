@@ -60,6 +60,7 @@ struct LoginView: View {
                                 user.id = authResult?.user.uid
                                 network.user?.id = authResult?.user.uid
                                 userProfile.id = authResult?.user.uid
+                                network.getMatchups()
                             }
         
                         default:

@@ -34,6 +34,10 @@
 		D8CACEE928AB141F00F225F0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D8CACEE828AB141F00F225F0 /* FirebaseFirestoreSwift */; };
 		D8CACEEB28ADBD0C00F225F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEEA28ADBD0C00F225F0 /* Constants.swift */; };
 		D8CACEEC28ADBD0C00F225F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEEA28ADBD0C00F225F0 /* Constants.swift */; };
+		D8CACEEE28AF345A00F225F0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEED28AF345A00F225F0 /* Game.swift */; };
+		D8CACEEF28AF345A00F225F0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEED28AF345A00F225F0 /* Game.swift */; };
+		D8CACEF128AF3E6800F225F0 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF028AF3E6800F225F0 /* GamesView.swift */; };
+		D8CACEF228AF3E6800F225F0 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF028AF3E6800F225F0 /* GamesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +80,8 @@
 		D88006312897259600FCC982 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		D8CACEE028AB0A2F00F225F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8CACEEA28ADBD0C00F225F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D8CACEED28AF345A00F225F0 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		D8CACEF028AF3E6800F225F0 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,7 @@
 				D88006052897141C00FCC982 /* RankingsView.swift */,
 				D84491EA289B37A7002B1653 /* LoginView.swift */,
 				D84491EC289B37E0002B1653 /* MainView.swift */,
+				D8CACEF028AF3E6800F225F0 /* GamesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +206,7 @@
 				D88006312897259600FCC982 /* Poll.swift */,
 				D84491DD289761BC002B1653 /* Team.swift */,
 				D8CACEEA28ADBD0C00F225F0 /* Constants.swift */,
+				D8CACEED28AF345A00F225F0 /* Game.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -356,6 +364,8 @@
 				D84491E9289B30FD002B1653 /* Network.swift in Sources */,
 				D84491ED289B37E0002B1653 /* MainView.swift in Sources */,
 				D84491EB289B37A7002B1653 /* LoginView.swift in Sources */,
+				D8CACEF128AF3E6800F225F0 /* GamesView.swift in Sources */,
+				D8CACEEE28AF345A00F225F0 /* Game.swift in Sources */,
 				D84491DE289761BC002B1653 /* Team.swift in Sources */,
 				D84491E1289B2C85002B1653 /* LeaderboardView.swift in Sources */,
 				D84491E3289B2D5A002B1653 /* ProfileView.swift in Sources */,
@@ -368,6 +378,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D88006152897141E00FCC982 /* PickTwoTests.swift in Sources */,
+				D8CACEEF28AF345A00F225F0 /* Game.swift in Sources */,
+				D8CACEF228AF3E6800F225F0 /* GamesView.swift in Sources */,
 				D8CACEEC28ADBD0C00F225F0 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

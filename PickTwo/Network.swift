@@ -14,14 +14,86 @@ class Network: ObservableObject {
     @Published var teams: [Team] = []
     @Published var user: UserProfile?
     @Published var standings: [String:Int] = [:]
+    @Published var matchups: [Game] = []
+    @Published var rankedGames: [Game] = []
     
     var rankedTeams: [Team] {
         let teams = self.teams.filter({$0.rank != nil}).sorted(by: {$0.rank ?? 99 < $1.rank ?? 98})
         return teams
     }
+    
+    var rankedTeamsStrings: [String] {
+        var names: [String] = []
+        for team in rankedTeams {
+            names.append(team.school)
+        }
+        return names
+    }
+    
+    func rankingForTeam(team: String) -> String? {
+        let ranking = rankedTeams.first(where: {$0.school == team})
+        guard let rank = ranking, let number = rank.rank else {
+            return nil
+        }
+        return String(describing: number)
+    }
+    
+    var rankedMatchups: [Game] {
+        var games: [Game] = []
+        for game in matchups {
+            if rankedTeamsStrings.contains(where: {($0.self == game.homeTeam) || ($0.self == game.awayTeam)}) {
+                games.append(game)
+            }
+        }
+        return games
+    }
+    
+    func getMatchups() {
+        guard let url = URL(string: Constants.gamesEndpoint) else {
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue(Constants.accessToken, forHTTPHeaderField: "Authorization")
+        
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if let error = error {
+                print("Request error: ", error)
+                return
+            }
 
+            guard let response = response as? HTTPURLResponse else { return }
+
+            if response.statusCode == 200 {
+                guard let data = data else { return }
+                DispatchQueue.main.async {
+                    do {
+                        let games = try JSONDecoder().decode([Game].self, from: data)
+                       // let decodedAPPoll = decodedPollList.first
+                       // self.polls = decodedAPPoll?.polls.first(where: {$0.name == "AP Top 25"})
+                        self.matchups = games
+                        print(self.matchups.debugDescription)
+                    } catch let error {
+                        print("Error decoding: ", error)
+                    }
+                }
+            } else {
+                print(response.statusCode)
+            }
+        }
+
+        dataTask.resume()
+    }
+    
+    func translateDate(game: Game) -> String? {
+        let dateFormatter = ISO8601DateFormatter([.withInternetDateTime,.withFractionalSeconds])
+        let dateString = game.time ?? ""
+        let formatted = dateFormatter.date(from: dateString)?.formatted()
+        return formatted
+    }
+    
     func getRankings() {
-        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2022&week=1&seasonType=regular") else { fatalError("Missing URL") }
+        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2022&week=1&seasonType=regular") else { fatalError("Missing URL")
+        }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue(Constants.accessToken, forHTTPHeaderField: "Authorization")
@@ -191,4 +263,11 @@ class Network: ObservableObject {
     }
 
     
+}
+
+extension ISO8601DateFormatter {
+    convenience init(_ formatOptions: Options) {
+        self.init()
+        self.formatOptions = formatOptions
+    }
 }
