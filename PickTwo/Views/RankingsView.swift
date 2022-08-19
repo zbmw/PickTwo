@@ -34,7 +34,7 @@ struct TeamsListView: View {
     @EnvironmentObject var network: Network
     @EnvironmentObject var user: UserProfile
     @EnvironmentObject var authUser: AuthUser
-    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -125,7 +125,7 @@ struct TeamsListView: View {
         } else if selections.contains(where: {$0.school == team.school}) {
             return Color.green.opacity(0.6)
         } else {
-            return Color.white
+            return colorScheme == .dark ? Color(UIColor.systemGray5) : Color.white
         }
     }
     

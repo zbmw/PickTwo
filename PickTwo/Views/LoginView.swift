@@ -15,6 +15,7 @@ struct LoginView: View {
     @EnvironmentObject var user: AuthUser
     @EnvironmentObject var userProfile: UserProfile
     @EnvironmentObject var network: Network
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationView {
@@ -71,7 +72,7 @@ struct LoginView: View {
                     }
                 }
                 .padding()
-                .signInWithAppleButtonStyle(.black)
+                .signInWithAppleButtonStyle(colorScheme == .light ? .black : .whiteOutline)
                 .frame(width: 280, height: 80, alignment: .center)
             }
         }
