@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import Firebase
 
 struct RankingsView: View {
     @EnvironmentObject var network: Network
@@ -20,8 +21,10 @@ struct RankingsView: View {
             .environmentObject(network)
             .environmentObject(authUser)
             .onAppear {
-                network.getRankings()
-                network.getTeams()
+                if network.rankedTeams.isEmpty {
+                    network.getRankings()
+                    network.getTeams()
+                }
         }
     }
 }
@@ -35,16 +38,42 @@ struct TeamsListView: View {
     @EnvironmentObject var user: UserProfile
     @EnvironmentObject var authUser: AuthUser
     @Environment(\.colorScheme) var colorScheme
+    var canMakePicks: Bool {
+        if Date() < network.translateDate(dateString: network.config.picksLock ?? "") ?? Date() {
+            return true
+        } else {
+            return false
+        }
+    }
     
     var body: some View {
         VStack {
+            if canMakePicks {
+            let dateString = network.config.picksLock as? String
+                Text("Picks Lock at:\n\(network.translateDate(date: dateString ?? "") ?? "TBD")")
+                .lineLimit(nil)
+                .frame(width: UIScreen.main.bounds.width, height: 60, alignment: .center)
+                .background(Color.red.opacity(0.8))
+                .padding()
+            } else {
+                Text("Picks are locked... \nHope you made the right ones!")
+                    .lineLimit(nil)
+                    .frame(width: UIScreen.main.bounds.width, height: 60, alignment: .center)
+                    .background(Color.green.opacity(0.7))
+                    .padding()
+            }
             list
             if showSubmit {
                 Button(action: {
-                    network.setPicks(picks: selections, id: authUser.id ?? "", name: user.name ?? "", previousPicks: user.previousPicks ?? [])
-                    showSubmit = false
-                    selections.removeAll()
-                    showSubmissionSuccess = true
+                    if canMakePicks {
+                        network.setPicks(picks: selections, id: authUser.id ?? "", name: user.name ?? "", previousPicks: user.previousPicks ?? [])
+                        showSubmit = false
+                        selections.removeAll()
+                        showSubmissionSuccess = true
+                        self.getUser()
+                    } else {
+                        print("Submission failed")
+                    }
                 }) {
                     Text("Submit Picks")
                         .fontWeight(.bold)
@@ -94,15 +123,20 @@ struct TeamsListView: View {
                     }
                 }
             }
-            .onTapGesture { self.selectDeselect(team) }
+            .onTapGesture {
+                if canMakePicks {
+                    self.selectDeselect(team)
+                }
+            }
             .listRowBackground(self.colorCells(team: team))
         }
         .listStyle(.automatic)
     }
     
     private func selectDeselect(_ team: Team) {
-        if let prevPicks = user.previousPicks, !prevPicks.contains(where: {$0.self == team.school}) {
+        if let prevPicks = user.previousPicks, prevPicks.contains(where: {$0.self == team.school}) {
             print("Cannot select team, already picked.")
+            return
         }
         
         if selections.contains(where: {$0.school == team.school}) {
@@ -127,6 +161,35 @@ struct TeamsListView: View {
         } else {
             return colorScheme == .dark ? Color(UIColor.systemGray5) : Color.white
         }
+    }
+    
+    func getUser() {
+        guard let id = user.id else {
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let docRef = db.collection("users").document(id)
+
+           docRef.getDocument { (document, error) in
+               guard error == nil else {
+                   print("error", error ?? "")
+                   return
+               }
+
+               if let document = document, document.exists {
+                   let data = document.data()
+                   if let data = data {
+                       print("data", data)
+                       self.user.id = data["uid"] as? String ?? ""
+                       self.user.currentPicks = data["currentPicks"] as? [String] ?? []
+                       self.user.name = data["name"] as? String ?? ""
+                       self.user.previousPicks = data["previousPicks"] as? [String] ?? []
+                   }
+               } else {
+                   db.collection("users").document(id).setData({["uid":id]}())
+               }
+           }
     }
     
 }

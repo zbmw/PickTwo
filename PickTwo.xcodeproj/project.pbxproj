@@ -38,6 +38,10 @@
 		D8CACEEF28AF345A00F225F0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEED28AF345A00F225F0 /* Game.swift */; };
 		D8CACEF128AF3E6800F225F0 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF028AF3E6800F225F0 /* GamesView.swift */; };
 		D8CACEF228AF3E6800F225F0 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF028AF3E6800F225F0 /* GamesView.swift */; };
+		D8CACEF428B0737600F225F0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF328B0737600F225F0 /* Config.swift */; };
+		D8CACEF528B0737600F225F0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF328B0737600F225F0 /* Config.swift */; };
+		D8CACEFD28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
+		D8CACEFE28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,8 @@
 		D8CACEEA28ADBD0C00F225F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D8CACEED28AF345A00F225F0 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		D8CACEF028AF3E6800F225F0 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
+		D8CACEF328B0737600F225F0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		D8CACEFC28BEB45000F225F0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +213,8 @@
 				D84491DD289761BC002B1653 /* Team.swift */,
 				D8CACEEA28ADBD0C00F225F0 /* Constants.swift */,
 				D8CACEED28AF345A00F225F0 /* Game.swift */,
+				D8CACEF328B0737600F225F0 /* Config.swift */,
+				D8CACEFC28BEB45000F225F0 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,6 +372,8 @@
 				D84491E9289B30FD002B1653 /* Network.swift in Sources */,
 				D84491ED289B37E0002B1653 /* MainView.swift in Sources */,
 				D84491EB289B37A7002B1653 /* LoginView.swift in Sources */,
+				D8CACEFD28BEB45000F225F0 /* User.swift in Sources */,
+				D8CACEF428B0737600F225F0 /* Config.swift in Sources */,
 				D8CACEF128AF3E6800F225F0 /* GamesView.swift in Sources */,
 				D8CACEEE28AF345A00F225F0 /* Game.swift in Sources */,
 				D84491DE289761BC002B1653 /* Team.swift in Sources */,
@@ -379,6 +389,8 @@
 			files = (
 				D88006152897141E00FCC982 /* PickTwoTests.swift in Sources */,
 				D8CACEEF28AF345A00F225F0 /* Game.swift in Sources */,
+				D8CACEFE28BEB45000F225F0 /* User.swift in Sources */,
+				D8CACEF528B0737600F225F0 /* Config.swift in Sources */,
 				D8CACEF228AF3E6800F225F0 /* GamesView.swift in Sources */,
 				D8CACEEC28ADBD0C00F225F0 /* Constants.swift in Sources */,
 			);
@@ -532,7 +544,7 @@
 				CODE_SIGN_ENTITLEMENTS = PickTwo/PickTwo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"PickTwo/Preview Content\"";
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;
@@ -568,7 +580,7 @@
 				CODE_SIGN_ENTITLEMENTS = PickTwo/PickTwo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"PickTwo/Preview Content\"";
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct GamesView: View {
     @EnvironmentObject var network: Network
+    @State var matchups: [Game] = []
     
     var body: some View {
-        List(network.rankedMatchups, id: \.homeTeam) { game in
+        List(filterRanked(matchups: matchups), id: \.homeTeam) { game in
             HStack {
                 let date: String = network.translateDate(game: game) ?? ""
                 let dateTime = date.split(separator: ",")
@@ -61,10 +62,23 @@ struct GamesView: View {
             }
         }
         .onAppear() {
-            if network.rankedMatchups.isEmpty {
+            if network.rankedMatchups.isEmpty && !network.config.week.isEmpty {
+                network.getRankings()
                 network.getMatchups()
+            } else {
+                matchups = network.matchups
             }
         }
+    }
+    
+    func filterRanked(matchups: [Game]) -> [Game] {
+        var games: [Game] = []
+        for game in matchups {
+            if network.rankedTeamsStrings.contains(where: {($0.self == game.homeTeam) || ($0.self == game.awayTeam)}) {
+                games.append(game)
+            }
+        }
+        return games
     }
 }
 

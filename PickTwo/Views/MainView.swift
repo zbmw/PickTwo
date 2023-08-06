@@ -25,11 +25,17 @@ struct MainView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button("Refresh") {
-                                self.getUser()
+                                DispatchQueue.main.async {
+                                    self.network.getConfig()
+                                    self.network.getRankings()
+                                    network.getTeams()
+                                    self.getUser()
+                                }
                             }
+                            .foregroundColor(Color.white)
                         }
                     }
-            }
+            }.navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
                 Image(systemName: "list.number")
                     .padding()
@@ -42,11 +48,16 @@ struct MainView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button("Refresh") {
+                                DispatchQueue.main.async {
+                                self.network.getConfig()
+                                self.network.getRankings()
+                                network.getTeams()
                                 network.getMatchups()
+                                }
                             }
                         }
                     }
-            }
+            }.navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
                 Image(systemName: "sportscourt")
                     .padding()
@@ -64,7 +75,7 @@ struct MainView: View {
                             }
                         }
                     }
-            }
+            }.navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
                 Image(systemName: "chart.bar")
                     .padding()
@@ -74,6 +85,7 @@ struct MainView: View {
                 ProfileView()
                     .environmentObject(network)
                     .environmentObject(userProfile)
+                    .environmentObject(user)
                     .navigationTitle("Profile")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -82,7 +94,7 @@ struct MainView: View {
                             }
                         }
                     }
-            }
+            }.navigationViewStyle(StackNavigationViewStyle())
             
             .tabItem {
                 Image(systemName: "person")
@@ -92,6 +104,10 @@ struct MainView: View {
         }.onAppear() {
             self.getUser()
             network.standings = network.getAllUsers() ?? [:]
+            network.getAllPicks()
+            network.getTeams()
+         //   network.getRankings()
+         //   network.getMatchups()
         }
     }
     

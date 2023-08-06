@@ -16,6 +16,27 @@ class Network: ObservableObject {
     @Published var standings: [String:Int] = [:]
     @Published var matchups: [Game] = []
     @Published var rankedGames: [Game] = []
+    @Published var users: [User] = []
+    @Published var config: Config = Config(week: "", picksLock: nil) {
+        didSet {
+            if !config.week.isEmpty {
+                getRankings()
+                getMatchups()
+            }
+        }
+    }
+    
+    
+    func clearInfo() {
+        polls = nil
+        teams = []
+        user = nil
+        standings = [:]
+        matchups = []
+        rankedGames = []
+        users = []
+        config = Config(week: "", picksLock: nil)
+    }
     
     var rankedTeams: [Team] {
         let teams = self.teams.filter({$0.rank != nil}).sorted(by: {$0.rank ?? 99 < $1.rank ?? 98})
@@ -49,7 +70,7 @@ class Network: ObservableObject {
     }
     
     func getMatchups() {
-        guard let url = URL(string: Constants.gamesEndpoint) else {
+        guard let url = URL(string: "https://api.collegefootballdata.com/games?year=2023&week=\(self.config.week)&seasonType=regular&division=fbs") else {
             return
         }
         var urlRequest = URLRequest(url: url)
@@ -91,8 +112,22 @@ class Network: ObservableObject {
         return formatted
     }
     
+    func translateDate(date: String) -> String? {
+        let dateFormatter = ISO8601DateFormatter([.withInternetDateTime,.withFractionalSeconds])
+        //let dateString = date
+        let formatted = dateFormatter.date(from: date)?.formatted(date: .long, time: .complete)
+        return formatted
+    }
+    
+    func translateDate(dateString: String) -> Date? {
+        let dateFormatter = ISO8601DateFormatter([.withInternetDateTime,.withFractionalSeconds,.withColonSeparatorInTime])
+        //let dateString = date
+        let formatted = dateFormatter.date(from: dateString)//?.formatted(date: .long, time: .complete)
+        return formatted
+    }
+    
     func getRankings() {
-        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2022&week=1&seasonType=regular") else { fatalError("Missing URL")
+        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2023&week=\(self.config.week)&seasonType=regular") else { fatalError("Missing URL")
         }
 
         var urlRequest = URLRequest(url: url)
@@ -190,6 +225,29 @@ class Network: ObservableObject {
         return self.standings
     }
     
+    func getAllPicks() {
+        let db = Firestore.firestore()
+        let users = db.collection("users")
+        users.getDocuments { snapshot, error in
+            guard error == nil else {
+                print("Error: \(error?.localizedDescription ?? "")")
+                return
+            }
+            for document in snapshot!.documents {
+                let data = document.data()
+                let name = data["name"] as? String ?? "N/A"
+                let strikes = data["strikes"] as? Int ?? 0
+                let currentPicks = data["currentPicks"] as? [String] ?? []
+                print("Got user named -> \(name) <- with \(currentPicks.description) picks")
+                let user = User(name: name, strikes: strikes, currentPicks: currentPicks)
+                if !(self.users.contains(where: {$0.name == user.name})) {
+                    self.users.append(user)
+                }
+            }
+        }
+        
+    }
+    
     func setPicks(picks: [Team], id: String, name: String, previousPicks: [String]) {
         var friendlyNames: [String]? = []
         for pick in picks {
@@ -216,10 +274,34 @@ class Network: ObservableObject {
              "uid": id]
         }(), merge: true)
     }
+    
+    func getConfig() {
+        //if self.config.week.isEmpty {
+            let db = Firestore.firestore()
+            let configDoc = db.collection("config").document("config")
+            configDoc.getDocument { document, error in
+                guard error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "")")
+                    return
+                }
+                if let document = document, document.exists {
+                    let data = document.data()
+                    
+                    let week = data?["week"] as? String ?? ""
+                    let picksDue = data?["picksDue"] as? String ?? ""
+                    //let date = self.translateDate(date: picksDue)
+                    self.config.week = week
+                    self.config.picksLock = picksDue
+                } else {
+                    print("snapshot does not exist")
+                }
+      //      }
+        }
+    }
 
     
     func getTeams() {
-        guard let url = URL(string: "https://api.collegefootballdata.com/teams/fbs?year=2022") else { fatalError("Missing URL") }
+        guard let url = URL(string: "https://api.collegefootballdata.com/teams/fbs?year=2023") else { fatalError("Missing URL") }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue(Constants.accessToken, forHTTPHeaderField: "Authorization")

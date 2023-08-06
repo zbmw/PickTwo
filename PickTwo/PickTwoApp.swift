@@ -10,6 +10,11 @@ import Firebase
 
 class AuthUser: ObservableObject {
     @Published var id: String?
+    
+    func logout() {
+        try? Auth.auth().signOut()
+        id = nil
+    }
 }
 
 class UserProfile: ObservableObject {
@@ -17,6 +22,13 @@ class UserProfile: ObservableObject {
     @Published var currentPicks: [String]?
     @Published var name: String?
     @Published var previousPicks: [String]?
+    
+    func clearInfo() {
+        id = nil
+        currentPicks = nil
+        name = nil
+        previousPicks = nil
+    }
 }
 
 

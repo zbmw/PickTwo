@@ -50,36 +50,35 @@ struct LoginView: View {
                             let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
                             Auth.auth().signIn(with: credential) { (authResult, error) in
                                 if (error != nil) {
-                                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                                    // you're sending the SHA256-hashed nonce as a hex string with
-                                    // your request to Apple.
                                     print(error?.localizedDescription as Any)
                                     return
                                 }
                                 print("signed in")
-                                user.id = authResult?.user.uid
-                                network.user?.id = authResult?.user.uid
-                                userProfile.id = authResult?.user.uid
-                                network.getMatchups()
+                                DispatchQueue.main.async {
+                                    network.getConfig()
+                                    user.id = authResult?.user.uid
+                                    network.user?.id = authResult?.user.uid
+                                    userProfile.id = authResult?.user.uid
+                                    network.getTeams()
+                                    network.getRankings()
+                                }
                             }
         
                         default:
                             break
-                            
                         }
                     default:
                         break
-                        
                     }
                 }
                 .padding()
                 .signInWithAppleButtonStyle(colorScheme == .light ? .black : .whiteOutline)
                 .frame(width: 280, height: 80, alignment: .center)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
-    
+    ///MARK: Encoding for Apple Login
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
         let charset: Array<Character> =
