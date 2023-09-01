@@ -62,9 +62,16 @@ struct GamesView: View {
             }
         }
         .onAppear() {
-            if network.rankedMatchups.isEmpty && !network.config.week.isEmpty {
-                network.getRankings()
-                network.getMatchups()
+            let matchupss = network.rankedMatchups
+            let week = network.config.week
+            
+            if (network.rankedMatchups.isEmpty || network.rankedTeams.isEmpty) && !network.config.week.isEmpty {
+                Task {
+                    await network.getRankings()
+                    await network.getTeams()
+                    network.getMatchups()
+                    self.matchups = network.rankedMatchups
+                }
             } else {
                 matchups = network.matchups
             }

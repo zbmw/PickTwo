@@ -58,6 +58,14 @@ struct ProfileView: View {
                 }
             }
         }
+        .onAppear {
+            if network.rankedTeams.isEmpty {
+                Task {
+                    await network.getRankings()
+                    await network.getTeams()
+                }
+            }
+        }
     }
 }
 

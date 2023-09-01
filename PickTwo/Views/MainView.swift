@@ -25,10 +25,10 @@ struct MainView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button("Refresh") {
-                                DispatchQueue.main.async {
-                                    self.network.getConfig()
-                                    self.network.getRankings()
-                                    network.getTeams()
+                                Task { //DispatchQueue.main.async {
+                                    await self.network.getConfig()
+                                    await self.network.getRankings()
+                                    await network.getTeams()
                                     self.getUser()
                                 }
                             }
@@ -48,11 +48,13 @@ struct MainView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button("Refresh") {
-                                DispatchQueue.main.async {
-                                self.network.getConfig()
-                                self.network.getRankings()
-                                network.getTeams()
-                                network.getMatchups()
+                                self.network.matchups = []
+                                Task {
+                                    await self.network.getConfig()
+                                    await self.network.getRankings()
+                                    await network.getTeams()
+                                    self.getUser()
+                                    network.getMatchups()
                                 }
                             }
                         }
@@ -62,6 +64,7 @@ struct MainView: View {
                 Image(systemName: "sportscourt")
                     .padding()
                 Text("Matchups")
+                GamesView.init(matchups: network.rankedMatchups)
             }.tag(2)
             NavigationView {
                 LeaderboardView()
@@ -101,13 +104,33 @@ struct MainView: View {
                     .padding()
                 Text("Profile/Picks")
             }.tag(4)
+            NavigationView {
+                PoolPicksView()
+                    .environmentObject(network)
+                    .environmentObject(userProfile)
+                    //.environmentObject(user)
+                    .navigationTitle("Pool Picks this week:")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Refresh") {
+                                self.getUser()
+                            }
+                        }
+                    }
+            }.navigationViewStyle(StackNavigationViewStyle())
+            
+            .tabItem {
+                Image(systemName: "chart.pie")
+                    .padding()
+                Text("Pool Picks")
+            }.tag(5)
         }.onAppear() {
             self.getUser()
-            network.standings = network.getAllUsers() ?? [:]
-            network.getAllPicks()
-            network.getTeams()
-         //   network.getRankings()
-         //   network.getMatchups()
+            Task {
+                network.standings = network.getAllUsers() ?? [:]
+                network.getAllPicks()
+                await network.getTeams()
+            }
         }
     }
     

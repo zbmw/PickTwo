@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Firebase
 
-class Network: ObservableObject {
+@MainActor class Network: ObservableObject {
     @Published var polls: Poll?
     @Published var teams: [Team] = []
     @Published var user: UserProfile?
@@ -17,11 +17,14 @@ class Network: ObservableObject {
     @Published var matchups: [Game] = []
     @Published var rankedGames: [Game] = []
     @Published var users: [User] = []
+    
     @Published var config: Config = Config(week: "", picksLock: nil) {
         didSet {
             if !config.week.isEmpty {
-                getRankings()
-                getMatchups()
+                Task {
+                    await getRankings()
+                    getMatchups()
+                }
             }
         }
     }
@@ -61,6 +64,7 @@ class Network: ObservableObject {
     
     var rankedMatchups: [Game] {
         var games: [Game] = []
+        let matchips = matchups
         for game in matchups {
             if rankedTeamsStrings.contains(where: {($0.self == game.homeTeam) || ($0.self == game.awayTeam)}) {
                 games.append(game)
@@ -70,7 +74,7 @@ class Network: ObservableObject {
     }
     
     func getMatchups() {
-        guard let url = URL(string: "https://api.collegefootballdata.com/games?year=2023&week=\(self.config.week)&seasonType=regular&division=fbs") else {
+        guard let url = URL(string: "https://api.collegefootballdata.com/games?year=2023&week=\(self.config.week)&seasonType=regular&division=fbs"), !self.config.week.isEmpty else {
             return
         }
         var urlRequest = URLRequest(url: url)
@@ -88,10 +92,7 @@ class Network: ObservableObject {
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     do {
-                        let games = try JSONDecoder().decode([Game].self, from: data)
-                       // let decodedAPPoll = decodedPollList.first
-                       // self.polls = decodedAPPoll?.polls.first(where: {$0.name == "AP Top 25"})
-                        self.matchups = games
+                        self.matchups = try JSONDecoder().decode([Game].self, from: data)
                         print(self.matchups.debugDescription)
                     } catch let error {
                         print("Error decoding: ", error)
@@ -126,8 +127,9 @@ class Network: ObservableObject {
         return formatted
     }
     
-    func getRankings() {
-        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2023&week=\(self.config.week)&seasonType=regular") else { fatalError("Missing URL")
+    func getRankings() async {
+        guard let url = URL(string: "https://api.collegefootballdata.com/rankings?year=2023&week=\(self.config.week)&seasonType=regular"), !self.config.week.isEmpty else {
+            return
         }
 
         var urlRequest = URLRequest(url: url)
@@ -275,32 +277,29 @@ class Network: ObservableObject {
         }(), merge: true)
     }
     
-    func getConfig() {
-        //if self.config.week.isEmpty {
-            let db = Firestore.firestore()
-            let configDoc = db.collection("config").document("config")
-            configDoc.getDocument { document, error in
-                guard error == nil else {
-                    print("Error: \(error?.localizedDescription ?? "")")
-                    return
-                }
-                if let document = document, document.exists {
-                    let data = document.data()
-                    
-                    let week = data?["week"] as? String ?? ""
-                    let picksDue = data?["picksDue"] as? String ?? ""
-                    //let date = self.translateDate(date: picksDue)
-                    self.config.week = week
-                    self.config.picksLock = picksDue
-                } else {
-                    print("snapshot does not exist")
-                }
-      //      }
+    func getConfig() async {
+        let db = Firestore.firestore()
+        let configDoc = db.collection("config").document("config")
+        configDoc.getDocument { document, error in
+            guard error == nil else {
+                print("Error: \(error?.localizedDescription ?? "")")
+                return
+            }
+            if let document = document, document.exists {
+                let data = document.data()
+                
+                let week = data?["week"] as? String ?? ""
+                let picksDue = data?["picksDue"] as? String ?? ""
+                self.config.week = week
+                self.config.picksLock = picksDue
+            } else {
+                print("snapshot does not exist")
+            }
         }
     }
 
     
-    func getTeams() {
+    func getTeams() async {
         guard let url = URL(string: "https://api.collegefootballdata.com/teams/fbs?year=2023") else { fatalError("Missing URL") }
 
         var urlRequest = URLRequest(url: url)

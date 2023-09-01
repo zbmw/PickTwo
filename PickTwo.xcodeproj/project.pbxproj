@@ -42,6 +42,7 @@
 		D8CACEF528B0737600F225F0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEF328B0737600F225F0 /* Config.swift */; };
 		D8CACEFD28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
 		D8CACEFE28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
+		D8ED91072AA23E24005412E2 /* PoolPicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ED91062AA23E24005412E2 /* PoolPicks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		D8CACEF028AF3E6800F225F0 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		D8CACEF328B0737600F225F0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		D8CACEFC28BEB45000F225F0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D8ED91062AA23E24005412E2 /* PoolPicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPicks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				D84491EA289B37A7002B1653 /* LoginView.swift */,
 				D84491EC289B37E0002B1653 /* MainView.swift */,
 				D8CACEF028AF3E6800F225F0 /* GamesView.swift */,
+				D8ED91062AA23E24005412E2 /* PoolPicks.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				D84491E9289B30FD002B1653 /* Network.swift in Sources */,
 				D84491ED289B37E0002B1653 /* MainView.swift in Sources */,
 				D84491EB289B37A7002B1653 /* LoginView.swift in Sources */,
+				D8ED91072AA23E24005412E2 /* PoolPicks.swift in Sources */,
 				D8CACEFD28BEB45000F225F0 /* User.swift in Sources */,
 				D8CACEF428B0737600F225F0 /* Config.swift in Sources */,
 				D8CACEF128AF3E6800F225F0 /* GamesView.swift in Sources */,

@@ -54,13 +54,14 @@ struct LoginView: View {
                                     return
                                 }
                                 print("signed in")
-                                DispatchQueue.main.async {
-                                    network.getConfig()
+                                Task {
+                                    await network.getConfig()
                                     user.id = authResult?.user.uid
                                     network.user?.id = authResult?.user.uid
                                     userProfile.id = authResult?.user.uid
-                                    network.getTeams()
-                                    network.getRankings()
+                                    await network.getTeams()
+                                    await network.getRankings()
+                                    await network.getMatchups()
                                 }
                             }
         

@@ -22,8 +22,10 @@ struct RankingsView: View {
             .environmentObject(authUser)
             .onAppear {
                 if network.rankedTeams.isEmpty {
-                    network.getRankings()
-                    network.getTeams()
+                    Task {
+                        await network.getRankings()
+                        await network.getTeams()
+                    }
                 }
         }
     }
