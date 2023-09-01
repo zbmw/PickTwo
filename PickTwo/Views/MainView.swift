@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseMessaging
 
 struct MainView: View {
     @EnvironmentObject var userProfile: UserProfile
@@ -125,6 +126,17 @@ struct MainView: View {
                 Text("Pool Picks")
             }.tag(5)
         }.onAppear() {
+            if network.fcmToken?.isEmpty ?? true {
+                Messaging.messaging().token { token, error in
+                  if let error = error {
+                    print("Error fetching FCM registration token: \(error)")
+                  } else if let token = token {
+                      network.fcmToken = token
+                    print("FCM registration token: \(token)")
+                    print("Remote FCM registration token: \(token)")
+                  }
+                }
+            }
             self.getUser()
             Task {
                 network.standings = network.getAllUsers() ?? [:]

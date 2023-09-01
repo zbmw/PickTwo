@@ -17,6 +17,7 @@ import Firebase
     @Published var matchups: [Game] = []
     @Published var rankedGames: [Game] = []
     @Published var users: [User] = []
+    @Published var fcmToken: String?
     
     @Published var config: Config = Config(week: "", picksLock: nil) {
         didSet {

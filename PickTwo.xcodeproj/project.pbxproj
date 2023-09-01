@@ -43,6 +43,7 @@
 		D8CACEFD28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
 		D8CACEFE28BEB45000F225F0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CACEFC28BEB45000F225F0 /* User.swift */; };
 		D8ED91072AA23E24005412E2 /* PoolPicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ED91062AA23E24005412E2 /* PoolPicks.swift */; };
+		D8ED910A2AA24E33005412E2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D8ED91092AA24E33005412E2 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8ED910A2AA24E33005412E2 /* FirebaseMessaging in Frameworks */,
 				D83B2E1C289B47FE001853CA /* FirebaseFirestoreCombine-Community in Frameworks */,
 				D83B2E18289B47FE001853CA /* FirebaseAuth in Frameworks */,
 				D83B2E1A289B47FE001853CA /* FirebaseFirestore in Frameworks */,
@@ -153,6 +155,7 @@
 				D88006132897141E00FCC982 /* PickTwoTests */,
 				D880061D2897141E00FCC982 /* PickTwoUITests */,
 				D88006012897141C00FCC982 /* Products */,
+				D8ED91082AA24E33005412E2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,6 +225,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		D8ED91082AA24E33005412E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,6 +257,7 @@
 				D8CACEE428AB141F00F225F0 /* FirebaseFirestore */,
 				D8CACEE628AB141F00F225F0 /* FirebaseFirestoreCombine-Community */,
 				D8CACEE828AB141F00F225F0 /* FirebaseFirestoreSwift */,
+				D8ED91092AA24E33005412E2 /* FirebaseMessaging */,
 			);
 			productName = PickTwo;
 			productReference = D88006002897141C00FCC982 /* PickTwo.app */;
@@ -787,6 +798,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D83B2E16289B47FE001853CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D8ED91092AA24E33005412E2 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D8CACEE328AB141F00F225F0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
