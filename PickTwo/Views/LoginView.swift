@@ -20,7 +20,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Welcome to the 2022 Pick-Two Pool!")
+                Text("Welcome to the 2023 Pick-Two Pool!")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .padding()
