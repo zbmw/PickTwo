@@ -559,7 +559,7 @@
 				CODE_SIGN_ENTITLEMENTS = PickTwo/PickTwo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"PickTwo/Preview Content\"";
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;
@@ -595,7 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = PickTwo/PickTwo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"PickTwo/Preview Content\"";
 				DEVELOPMENT_TEAM = L8RQXRRVJ4;
 				ENABLE_PREVIEWS = YES;
