@@ -11,6 +11,7 @@ struct ProfileView: View {
     @State var name: String = ""
     @EnvironmentObject var userProfile: UserProfile
     @EnvironmentObject var network: Network
+    @EnvironmentObject var user: AuthUser
     
     var body: some View {
         VStack {
@@ -42,7 +43,26 @@ struct ProfileView: View {
                                 }
                             }
                         }
+                        Button("To Sign Out: Press Here") {
+                            network.clearInfo()
+                            userProfile.clearInfo()
+                            user.logout()
+                        }
+                        
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.white)
+                        .padding()
+                        .listRowBackground(Color.red.opacity(0.6).ignoresSafeArea()).ignoresSafeArea()
                     }.listStyle(.insetGrouped)
+                }
+            }
+        }
+        .onAppear {
+            if network.rankedTeams.isEmpty {
+                Task {
+                    await network.getRankings()
+                    await network.getTeams()
                 }
             }
         }

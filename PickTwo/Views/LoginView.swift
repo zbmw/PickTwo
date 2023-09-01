@@ -15,11 +15,12 @@ struct LoginView: View {
     @EnvironmentObject var user: AuthUser
     @EnvironmentObject var userProfile: UserProfile
     @EnvironmentObject var network: Network
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationView {
             VStack {
-                Text("Welcome to the 2022 Pick-Two Pool!")
+                Text("Welcome to the 2023 Pick-Two Pool!")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .padding()
@@ -49,35 +50,36 @@ struct LoginView: View {
                             let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
                             Auth.auth().signIn(with: credential) { (authResult, error) in
                                 if (error != nil) {
-                                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                                    // you're sending the SHA256-hashed nonce as a hex string with
-                                    // your request to Apple.
                                     print(error?.localizedDescription as Any)
                                     return
                                 }
                                 print("signed in")
-                                user.id = authResult?.user.uid
-                                network.user?.id = authResult?.user.uid
-                                userProfile.id = authResult?.user.uid
+                                Task {
+                                    await network.getConfig()
+                                    user.id = authResult?.user.uid
+                                    network.user?.id = authResult?.user.uid
+                                    userProfile.id = authResult?.user.uid
+                                    await network.getTeams()
+                                    await network.getRankings()
+                                    await network.getMatchups()
+                                }
                             }
         
                         default:
                             break
-                            
                         }
                     default:
                         break
-                        
                     }
                 }
                 .padding()
-                .signInWithAppleButtonStyle(.black)
+                .signInWithAppleButtonStyle(colorScheme == .light ? .black : .whiteOutline)
                 .frame(width: 280, height: 80, alignment: .center)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
-    
+    ///MARK: Encoding for Apple Login
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
         let charset: Array<Character> =
